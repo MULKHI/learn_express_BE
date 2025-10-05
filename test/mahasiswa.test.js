@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../project/app");
 
-describe("API Mahasiswa", () => {
+describe(" API Mahasiswa ", () => {
   it("GET / should return API ready", async () => {
     const res = await request(app).get("/");
     expect(res.statusCode).toBe(200);
