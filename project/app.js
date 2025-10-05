@@ -7,7 +7,7 @@ const response = require("./response");
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  response(200, "API v1 Ready To Go Anjay TEAaaaa", "SUCCESS", res);
+  response(200, "API v1 Ready To Go", "SUCCESS", res);
 });
 
 app.get("/mahasiswa", (req, res) => {
