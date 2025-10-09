@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon project/server.js",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,9 @@
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "husky": "^9.1.7",
     "jest": "^30.2.0",
     "supertest": "^7.1.4"
   }
