@@ -4,8 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test-be": "nodemon --exec \"node project/server.js\"",
-    "test": "jest"
+    "dev": "nodemon project/server.js",
+    "test": "jest",
+    "prepare": "husky",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +18,12 @@
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/js": "^9.37.0",
+    "eslint": "^9.37.0",
+    "globals": "^16.4.0",
+    "husky": "^9.1.7",
     "jest": "^30.2.0",
     "supertest": "^7.1.4"
   }
