@@ -1,12 +1,9 @@
 const express = require("express");
 const MahasiswaRouter = express.Router();
-const app = express();
 const db = require("../connection");
 const response = require("../response");
 
-
-MahasiswaRouter
-  .route("/")
+MahasiswaRouter.route("/")
 
   // GET ALL
   .get((req, res) => {
@@ -80,4 +77,4 @@ MahasiswaRouter
     });
   });
 
-  module.exports = MahasiswaRouter;
+module.exports = MahasiswaRouter;
