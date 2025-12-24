@@ -2,10 +2,126 @@ const express = require("express");
 const MahasiswaRouter = express.Router();
 const db = require("../connection");
 const response = require("../response");
+const authMiddleware = require("../middleware/auth"); // 🔐 TAMBAH INI
+
+/**
+ * @swagger
+ * tags:
+ *   name: Mahasiswa
+ *   description: Manajemen data mahasiswa
+ */
+
+/**
+ * @swagger
+ * /mahasiswa:
+ *   get:
+ *     summary: Ambil semua data mahasiswa
+ *     tags: [Mahasiswa]
+ *     security:
+ *       - bearerAuth: []   # 🔐 JWT WAJIB
+ *     responses:
+ *       200:
+ *         description: Berhasil mengambil data mahasiswa
+ *       401:
+ *         description: Unauthorized
+ */
+
+/**
+ * @swagger
+ * /mahasiswa:
+ *   post:
+ *     summary: Tambah data mahasiswa
+ *     tags: [Mahasiswa]
+ *     security:
+ *       - bearerAuth: []   # 🔐 JWT WAJIB
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - nim
+ *               - nama_lengkap
+ *               - kelas
+ *               - alamat
+ *             properties:
+ *               nim:
+ *                 type: string
+ *               nama_lengkap:
+ *                 type: string
+ *               kelas:
+ *                 type: string
+ *               alamat:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Mahasiswa berhasil ditambahkan
+ */
+
+/**
+ * @swagger
+ * /mahasiswa:
+ *   put:
+ *     summary: Update data mahasiswa
+ *     tags: [Mahasiswa]
+ *     security:
+ *       - bearerAuth: []   # 🔐 JWT WAJIB
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - nim
+ *             properties:
+ *               nim:
+ *                 type: string
+ *               nama_lengkap:
+ *                 type: string
+ *               kelas:
+ *                 type: string
+ *               alamat:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Mahasiswa berhasil diupdate
+ *       404:
+ *         description: Mahasiswa tidak ditemukan
+ */
+
+/**
+ * @swagger
+ * /mahasiswa:
+ *   delete:
+ *     summary: Hapus data mahasiswa
+ *     tags: [Mahasiswa]
+ *     security:
+ *       - bearerAuth: []   # 🔐 JWT WAJIB
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - nim
+ *             properties:
+ *               nim:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Mahasiswa berhasil dihapus
+ *       404:
+ *         description: Mahasiswa tidak ditemukan
+ */
+
+// 🔐 SEMUA ENDPOINT MAHASISWA WAJIB JWT
+MahasiswaRouter.use(authMiddleware);
 
 MahasiswaRouter.route("/")
 
-  // GET ALL
   .get((req, res) => {
     const sql = "SELECT * FROM mahasiswa";
     db.query(sql, (err, results) => {
@@ -14,7 +130,6 @@ MahasiswaRouter.route("/")
     });
   })
 
-  // CREATE
   .post((req, res) => {
     const { nim, nama_lengkap, kelas, alamat } = req.body;
     if (!nim || !nama_lengkap || !kelas || !alamat) {
@@ -37,7 +152,6 @@ MahasiswaRouter.route("/")
     });
   })
 
-  // UPDATE
   .put((req, res) => {
     const { nim, nama_lengkap, kelas, alamat } = req.body;
     if (!nim) return response(400, null, "NIM is required", res);
@@ -57,7 +171,6 @@ MahasiswaRouter.route("/")
     });
   })
 
-  // DELETE
   .delete((req, res) => {
     const { nim } = req.body;
     if (!nim) return response(400, null, "NIM is required", res);
