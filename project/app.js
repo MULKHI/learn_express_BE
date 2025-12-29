@@ -13,9 +13,11 @@ app.use(express.json());
 // Routes
 const MahasiswaRouter = require("./routes/Mahasiswa");
 const AuthRouter = require("./routes/Auth");
+const RegisterRouter = require("./routes/Register");
 
 app.use("/mahasiswa", MahasiswaRouter);
 app.use("/auth", AuthRouter);
+app.use("/auth", RegisterRouter);
 
 // Swagger config
 const swaggerOptions = {
